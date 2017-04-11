@@ -1,6 +1,8 @@
 package com.example.alexey.myapp;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.ActionBar;
@@ -10,10 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 
 
 public class MainActivity extends AppCompatActivity implements ServiceHelper.MemResultListener {
@@ -48,21 +47,20 @@ public class MainActivity extends AppCompatActivity implements ServiceHelper.Mem
             invalidateOptionsMenu();
         }
 
-
         Button btnCity = (Button) findViewById(R.id.btn_getMem);
-
 
         btnCity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getMemes(false);
+                getMemes();
+                System.out.println("updateMem");
             }
         });
 
     }
 
     private void getMemes() {
-        ServiceHelper.getInstance(this).getNews(this, getCategory(), this);
+        ServiceHelper.getInstance(this).getMemes(this, getCategory(), this);
     }
 
     private String getCategory() {
@@ -78,17 +76,16 @@ public class MainActivity extends AppCompatActivity implements ServiceHelper.Mem
     }
 
     private void updateMem() {
-        try {
-         String mem = storage.getLastSavedMem();
+
+        String mem = storage.getLastSavedMem();
+        if (mem != null) {
             byte[] img = mem.getBytes();
             Bitmap bitmap = BitmapFactory.decodeByteArray(img, 0, img.length);
             System.out.println("updateMem");
             iv.setImageBitmap(bitmap);
-//            txtTitle.setText(String.format("%s", news.getTitle()));
-//            txtDate.setText(String.format("%s", FORMAT.format(news.getDate())));
-//            txtBody.setText(String.format("%s", news.getBody()));
-        } catch (NullPointerException n) {
-            System.out.println(n.getMessage());
+        } else {
+
+            System.out.println("Error");
         }
     }
 

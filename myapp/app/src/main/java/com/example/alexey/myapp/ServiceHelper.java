@@ -37,8 +37,7 @@ class ServiceHelper {
         }, filter);
     }
 
-    void getNews(final Context context, final String category, final MemResultListener listener
-    ) {
+    void getMemes(final Context context, final String category, final MemResultListener listener) {
         memListener = listener;
 
         Intent intent = new Intent(context, MemIntentService.class);
