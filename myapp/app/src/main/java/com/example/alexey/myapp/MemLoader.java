@@ -31,7 +31,7 @@ public class MemLoader {
             }
 
             var = response.body().bytes();
-           result = Base64.encodeToString(var, Base64.DEFAULT);
+            result = Base64.encodeToString(var, Base64.DEFAULT);
             System.out.println("BODY");
             System.out.println(result.length());
 

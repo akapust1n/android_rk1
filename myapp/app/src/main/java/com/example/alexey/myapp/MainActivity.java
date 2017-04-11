@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -79,11 +80,16 @@ public class MainActivity extends AppCompatActivity implements ServiceHelper.Mem
 
         String mem = storage.getLastSavedMem();
         if (mem != null) {
-            byte[] img = mem.getBytes();
+            byte[] img = Base64.decode(mem, Base64.DEFAULT);
+            System.out.println("INTO MEM_UPDATE");
+            System.out.println(mem.length());
+
             Bitmap bitmap = BitmapFactory.decodeByteArray(img, 0, img.length);
-            System.out.println(img.length);
-            if(bitmap != null){
-            iv.setImageBitmap(bitmap);}
+            if (bitmap != null) {
+                System.out.println("Bitmap NOT NULL");
+                  //  iv.setImageBitmap(bitmap);
+                }
+
         } else {
 
             System.out.println("Error mem update");
