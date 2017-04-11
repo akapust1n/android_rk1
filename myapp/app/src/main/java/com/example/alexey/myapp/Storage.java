@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 
-
-
 public class Storage {
 
     private static com.example.alexey.myapp.Storage INSTANCE;
@@ -31,9 +29,10 @@ public class Storage {
             this.preferences.edit().putString("Mem", mem).apply();
         }
     }
+
     public String getLastSavedMem() {
         String result = this.preferences.getString("Mem", "");
-        return result.isEmpty()?null: result;
+        return result.isEmpty() ? null : result;
     }
 
 

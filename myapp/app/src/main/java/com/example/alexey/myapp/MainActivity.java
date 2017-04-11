@@ -81,11 +81,12 @@ public class MainActivity extends AppCompatActivity implements ServiceHelper.Mem
         if (mem != null) {
             byte[] img = mem.getBytes();
             Bitmap bitmap = BitmapFactory.decodeByteArray(img, 0, img.length);
-            System.out.println("updateMem");
-            iv.setImageBitmap(bitmap);
+            System.out.println(img.length);
+            if(bitmap != null){
+            iv.setImageBitmap(bitmap);}
         } else {
 
-            System.out.println("Error");
+            System.out.println("Error mem update");
         }
     }
 

@@ -6,6 +6,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Request.Builder;
 import okhttp3.Response;
+import android.util.Base64;
 
 
 public class MemLoader {
@@ -15,20 +16,30 @@ public class MemLoader {
     }
 
     public String loadMem(String kind) throws IOException {
-        Request request = (new Builder()).url("https://ronreiter-meme-generator.p.mashape.com/meme?bottom=Bottom+text&font=Impact&font_size=50&top=Top+text&meme=" + kind).addHeader("X-Mashape-Key", "meiCj6xmshe4yeLhbsDDHjd1bp12dS56jsnl3X89gnnbBQE").build();
+        System.out.println("THERE");
+        System.out.println(kind);
+
+        Request request = (new Builder()).url("https://ronreiter-meme-generator.p.mashape.com/meme?bottom=Bottom+text&font=Impact&font_size=50&top=Top+text&meme=" + kind).addHeader("X-Mashape-Key", "O49meiCj6xmshe4yeLhbsDDHjd1bp12dS56jsnl3X89gnnbBQE").build();
         Response response = this.httpClient.newCall(request).execute();
 
-        String var4;
+        byte[] var;
+        String result;
+
         try {
             if (!response.isSuccessful()) {
                 throw new IOException("Wrong status: " + response.code() + "; body: " + response.body().string());
             }
 
-            var4 = response.body().toString();
+            var = response.body().bytes();
+           result = Base64.encodeToString(var, Base64.DEFAULT);
+            System.out.println("BODY");
+            System.out.println(result.length());
+
+
         } finally {
             response.body().close();
         }
 
-        return var4;
+        return result;
     }
 }
