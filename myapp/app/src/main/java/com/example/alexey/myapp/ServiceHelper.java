@@ -37,11 +37,15 @@ class ServiceHelper {
         }, filter);
     }
 
-    void getMemes(final Context context, final String category, final MemResultListener listener) {
+    void getMemes(final Context context, final MemResultListener listener, final Meme mem) {
         memListener = listener;
 
         Intent intent = new Intent(context, MemIntentService.class);
-        intent.putExtra(MemIntentService.EXTRA_MEM_CATEGORY, category);
+        intent.putExtra(MemIntentService.EXTRA_MEM_CATEGORY, mem.getCategory());
+        intent.putExtra(MemIntentService.EXTRA_MEM_TOP_TEXT,mem.getTopText());
+        intent.putExtra(MemIntentService.EXTRA_MEM_BOT_TEXT,mem.getBotText());
+
+
 
         context.startService(intent);
     }

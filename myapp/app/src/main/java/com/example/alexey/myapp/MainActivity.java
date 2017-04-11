@@ -12,15 +12,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 
 public class MainActivity extends AppCompatActivity implements ServiceHelper.MemResultListener {
 
     private Storage storage;
     private final static String CATEGORY = "leo-cheers";
     private ImageView iv;
+    private EditText topText, botText;
     private ActionBar actionBar;
     private String appName;
 
@@ -47,21 +48,23 @@ public class MainActivity extends AppCompatActivity implements ServiceHelper.Mem
             actionBar.setTitle(appName + " - " + getCategory());
             invalidateOptionsMenu();
         }
-
+        topText = (EditText) findViewById(R.id.topText);
+        botText = (EditText) findViewById(R.id.botText);
         Button btnCity = (Button) findViewById(R.id.btn_getMem);
+        iv = (ImageView) findViewById(R.id.iv1);
 
         btnCity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getMemes();
-                System.out.println("updateMem");
             }
         });
 
     }
 
     private void getMemes() {
-        ServiceHelper.getInstance(this).getMemes(this, getCategory(), this);
+        Meme mem = new Meme(topText.getText().toString(), botText.getText().toString(), getCategory());
+        ServiceHelper.getInstance(this).getMemes(this, this, mem);
     }
 
     private String getCategory() {
@@ -86,9 +89,8 @@ public class MainActivity extends AppCompatActivity implements ServiceHelper.Mem
 
             Bitmap bitmap = BitmapFactory.decodeByteArray(img, 0, img.length);
             if (bitmap != null) {
-                System.out.println("Bitmap NOT NULL");
-                  //  iv.setImageBitmap(bitmap);
-                }
+                iv.setImageBitmap(bitmap);
+            }
 
         } else {
 

@@ -6,6 +6,10 @@
     <string name="error">Error</string>
     <string name="text_load">Loading</string>
     <string name="button_1">Get Mem</string>
+    <string name="topText">Top Text</string>
+    <string name="botText">Bot Text</string>
+
+
 
 
     <string-array name="array_categories">

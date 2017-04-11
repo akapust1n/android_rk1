@@ -1,12 +1,13 @@
 package com.example.alexey.myapp;
 
+import android.util.Base64;
+
 import java.io.IOException;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Request.Builder;
 import okhttp3.Response;
-import android.util.Base64;
 
 
 public class MemLoader {
@@ -15,11 +16,10 @@ public class MemLoader {
     public MemLoader() {
     }
 
-    public String loadMem(String kind) throws IOException {
-        System.out.println("THERE");
-        System.out.println(kind);
+    public String loadMem(String category, String topText, String botText) throws IOException {
 
-        Request request = (new Builder()).url("https://ronreiter-meme-generator.p.mashape.com/meme?bottom=Bottom+text&font=Impact&font_size=50&top=Top+text&meme=" + kind).addHeader("X-Mashape-Key", "O49meiCj6xmshe4yeLhbsDDHjd1bp12dS56jsnl3X89gnnbBQE").build();
+
+        Request request = (new Builder()).url("https://ronreiter-meme-generator.p.mashape.com/meme?bottom=" + botText + "&font=Impact&font_size=50&top="+topText+"&meme=" + category).addHeader("X-Mashape-Key", "O49meiCj6xmshe4yeLhbsDDHjd1bp12dS56jsnl3X89gnnbBQE").build();
         Response response = this.httpClient.newCall(request).execute();
 
         byte[] var;
